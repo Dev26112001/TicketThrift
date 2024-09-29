@@ -5,7 +5,10 @@ import tech2 from '../assets/Images/pexels-pixabay-47730.jpg'
 import tech3 from '../assets/Images/signup.png'
 import tech4 from '../assets/Images/credit-card.png'
 import tech5 from '../assets/Images/enjoy.png'
-import Buy from '../Components/BuyNow.jsx'; 
+import { FaFacebookF } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import { Link } from 'react-router-dom';
+// import Buy from '../Components/BuyNow.jsx'; 
 
 
 
@@ -54,16 +57,16 @@ const TicketPlatform = () => {
                         Explore the best secondhand event tickets at unbeatable prices!
                     </p>
                     <div className="space-x-4">
-                    <button   to="/buy"
+                    <Link   to="/buy"
                      className="bg-blue-500 text-white py-4 px-8 rounded-lg font-bold border-2 border-blue-500 hover:bg-red-500 hover:border-red-500 hover:text-white transition duration-300 transform hover:scale-105 shadow-xl" >
         Buy Tickets
-      </button>
-      <a
-        href="#sell"
+      </Link>
+      <Link
+        to="/sell"
         className="bg-blue-500 text-white py-4 px-8 rounded-lg font-bold border-2 border-blue-500 hover:bg-red-500 hover:border-red-500 hover:text-white transition duration-300 transform hover:scale-105 shadow-xl"
       >
         Sell Tickets
-      </a>
+      </Link>
     </div>
                 </div>
             </section>
@@ -177,7 +180,7 @@ const TicketPlatform = () => {
                         <div className="bg-gray-100 p-8 rounded-lg shadow-xl hover:bg-gray-200 transition duration-300 transform hover:scale-105">
                             <h3 className="text-2xl font-bold mb-4">The Rising Trend of Secondhand Event Tickets</h3>
                             <p className="text-gray-600 mb-4">Explore how buying secondhand tickets is becoming a popular trend for event-goers.</p>
-                            <a href="#read-more" className="text-purple-600 font-bold hover:underline">Read More</a>
+                            <Link to="/readmore" className="text-purple-600 font-bold hover:underline">Read More</Link>
                         </div>
                         <div className="bg-gray-100 p-8 rounded-lg shadow-xl hover:bg-gray-200 transition duration-300 transform hover:scale-105">
                             <h3 className="text-2xl font-bold mb-4">Tips for Safe Online Ticket Purchases</h3>
@@ -207,19 +210,20 @@ const TicketPlatform = () => {
             </section>
 
             {/* Footer */}
+            
 <footer className="py-10 bg-gray-900 text-white text-center">
     <div className="container mx-auto">
         <p className="mb-4">Follow us on social media:</p>
-        <div className="flex justify-center space-x-6 mb-4">
-            <a href="https://www.facebook.com/" className="text-gray-400 hover:text-white transition duration-300 transform hover:scale-110">
-                <i className="fab fa-facebook-f"></i>
+        <div className="flex justify-center  w-full h-30 mb-4">
+            <a href="https://www.facebook.com/" className="text-white hover:text-white transition duration-300 transform hover:scale-110">
+                <FaFacebookF/>
             </a>
             <a href="https://x.com/quasitek" className="text-gray-400 hover:text-white transition duration-300 transform hover:scale-110">
-                <i className="fab fa-twitter"></i>
+                <FaXTwitter/>
             </a>
-            <a href="https://www.instagram.com/" className="text-gray-400 hover:text-white transition duration-300 transform hover:scale-110">
+            {/* <a href="https://www.instagram.com/" className="text-gray-400 hover:text-white transition duration-300 transform hover:scale-110">
                 <i className="fab fa-instagram"></i>
-            </a>
+            </a> */}
         </div>
         <p className="text-sm">Developed by Quasitek Solutions</p>
     </div>

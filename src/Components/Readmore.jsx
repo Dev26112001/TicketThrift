@@ -1,4 +1,5 @@
-import React from 'react';
+
+import { Link } from 'react-router-dom';
 
 const ReadMore = () => {
     return (
@@ -38,14 +39,14 @@ const ReadMore = () => {
 
                     {/* Responsive Button */}
                     <div className="text-center mt-8">
-                        <a 
-                            href="https://www.example.com" // Change this to your desired URL
+                        <Link to="/blog" // Change this to your desired URL
                             target="_blank" 
                             rel="noopener noreferrer" 
                             className="inline-block bg-purple-600 text-white py-2 px-6 rounded-lg font-bold hover:bg-purple-800 transition duration-300 transform hover:scale-105"
                         >
                             Visit our Blog Page
-                        </a>
+                        </Link>
+                        
                     </div>
                 </article>
             </main>
