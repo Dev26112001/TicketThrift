@@ -1,0 +1,43 @@
+/* Waterdrop effect for search bar */
+.search-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    height: 0;
+    opacity: 0;
+    transition: height 0.4s ease-in-out, opacity 0.4s ease-in-out;
+  }
+  
+  .search-open {
+    height: 80px; /* Reduced height to keep the layout compact */
+    opacity: 1;
+  }
+  
+  .search-container::before {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    top: 0;
+    animation: dropEffect 0.6s ease-in-out;
+  }
+  
+  @keyframes dropEffect {
+    0% {
+      transform: scale(0);
+    }
+    80% {
+      transform: scale(4);
+    }
+    100% {
+      transform: scale(1);
+      width: 100%;
+      height: 100%;
+      border-radius: 0;
+    }
+  }
+  
