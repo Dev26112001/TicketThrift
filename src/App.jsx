@@ -21,7 +21,7 @@ function App() {
       <Route path="/sell" element={<Hello2 />} />
       <Route path="/readmore" element={<Hello3 />} />
       <Route path="/blog" element={<Hello4 />} />
-      <Route path="/checkout" element={<Hey />} />
+      <Route path="/checkout" element={<Hey/>} />
       <Route path="/profile" element={<ProfileDashboard/>} />
       <Route path="*" element={<h2>404 - Page Not Found</h2>} /> {/* 404 Page */}
     </Routes>
