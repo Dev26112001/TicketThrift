@@ -51,31 +51,45 @@ const TicketPlatform = () => {
     return (
         <div className="bg-gray-100 text-gray-800">
             {/* Hero Section */}
-            <section className="relative bg-cover bg-center h-screen overflow-hidden">
-                <div
-                    className={`absolute inset-0 bg-cover bg-center h-full w-full transition-transform duration-1000 ${transitioning ? 'transform translate-x-full' : ''}`}
-                    style={{ backgroundImage: `url(${images[currentImage]})` }}
-                >
-                    <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-70"></div>
-                </div>
+            {/* Hero Section */}
+<section className="relative bg-cover bg-center h-screen overflow-hidden">
+    <div className="absolute inset-0 flex h-full w-full">
+        {images.map((image, index) => (
+            <div
+                key={index}
+                className={`absolute inset-0 bg-cover bg-center h-full w-full transition-opacity duration-1000 ${currentImage === index ? 'opacity-100 z-20' : 'opacity-0 z-10'}`}
+                style={{ backgroundImage: `url(${image})` }}
+            >
+                {/* Remove the gradient layer to ensure no interruption */}
+            </div>
+        ))}
+    </div>
 
-                <div className="container mx-auto px-5 py-36 relative z-10">
-                    <h1 className="text-6xl font-extrabold text-white mb-4 tracking-wide leading-tight">
-                        Find Tickets, Save Money
-                    </h1>
-                    <p className="text-2xl text-gray-200 mb-8 opacity-90">
-                        Explore the best secondhand event tickets at unbeatable prices!
-                    </p>
-                    <div className="space-x-4">
-                        <Link to="/buy" className="bg-blue-500 text-white py-4 px-8 rounded-lg font-bold border-2 border-blue-500 hover:bg-red-500 hover:border-red-500 hover:text-white transition duration-300 transform hover:scale-105 shadow-xl">
-                            Buy Tickets
-                        </Link>
-                        <Link to="/sell" className="bg-blue-500 text-white py-4 px-8 rounded-lg font-bold border-2 border-blue-500 hover:bg-red-500 hover:border-red-500 hover:text-white transition duration-300 transform hover:scale-105 shadow-xl">
-                            Sell Tickets
-                        </Link>
-                    </div>
-                </div>
-            </section>
+    {/* Content overlay */}
+    <div className="container mx-auto px-5 py-36 relative z-30">
+        <h1 className="text-6xl font-extrabold text-white mb-4 tracking-wide leading-tight">
+            Find Tickets, Save Money
+        </h1>
+        <p className="text-2xl text-gray-200 mb-8 opacity-90">
+            Explore the best secondhand event tickets at unbeatable prices!
+        </p>
+        <div className="space-x-4">
+            <Link
+                to="/buy"
+                className="bg-blue-500 text-white py-4 px-8 rounded-lg font-bold border-2 border-blue-500 hover:bg-red-500 hover:border-red-500 hover:text-white transition duration-300 transform hover:scale-105 shadow-xl"
+            >
+                Buy Tickets
+            </Link>
+            <Link
+                to="/sell"
+                className="bg-blue-500 text-white py-4 px-8 rounded-lg font-bold border-2 border-blue-500 hover:bg-red-500 hover:border-red-500 hover:text-white transition duration-300 transform hover:scale-105 shadow-xl"
+            >
+                Sell Tickets
+            </Link>
+        </div>
+    </div>
+</section>
+
 
             {/* Featured Events Section */}
             <FeaturedEventsCard />
