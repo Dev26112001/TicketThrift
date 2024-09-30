@@ -70,7 +70,7 @@ const TicketPlatform = () => {
         <h1 className="text-6xl font-extrabold text-white mb-4 tracking-wide leading-tight">
             Find Tickets, Save Money
         </h1>
-        <p className="text-2xl text-gray-200 mb-8 opacity-90">
+        <p className="text-2xl font-bold text-gray-200 mb-8 opacity-90">
             Explore the best secondhand event tickets at unbeatable prices!
         </p>
         <div className="space-x-4">

@@ -7,6 +7,8 @@ import Hello2 from './Components/Sell.jsx';
 import Hello3 from './Components/Readmore.jsx';
 import Hello4 from './Components/Blog.jsx';
 import Hey from './Components/Checkout.jsx';
+import ProfileDashboard from './Components/Profile.jsx';
+// import Prof from './Components/Profile.jsx';
 function App() {
 
   return (
@@ -20,10 +22,10 @@ function App() {
       <Route path="/readmore" element={<Hello3 />} />
       <Route path="/blog" element={<Hello4 />} />
       <Route path="/checkout" element={<Hey />} />
+      <Route path="/profile" element={<ProfileDashboard/>} />
       <Route path="*" element={<h2>404 - Page Not Found</h2>} /> {/* 404 Page */}
     </Routes>
   </Router>
-   
     </>
   )
 }
