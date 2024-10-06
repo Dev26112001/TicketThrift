@@ -165,8 +165,13 @@ const TicketPlatform = () => {
             How TicketThrift Works
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            {/* Step 1 */}
             <div
-              className={`p-8 rounded-lg shadow-2xl ${stepStyles[activeStep]} transition duration-500 transform hover:scale-105`}
+              className={`p-8 rounded-lg shadow-2xl transition duration-50 transform ${
+                activeStep === 0
+                  ? "scale-110 opacity-100"
+                  : "scale-100 opacity-30"
+              } ${stepStyles[0]} `}
             >
               <img
                 src={tech3}
@@ -179,10 +184,13 @@ const TicketPlatform = () => {
                 tickets.
               </p>
             </div>
+            {/* Step 2 */}
             <div
-              className={`p-8 rounded-lg shadow-2xl ${
-                stepStyles[(activeStep + 1) % 3]
-              } transition duration-500 transform hover:scale-105`}
+              className={`p-8 rounded-lg shadow-2xl transition duration-50 transform ${
+                activeStep === 1
+                  ? "scale-110 opacity-100"
+                  : "scale-100 opacity-30"
+              } ${stepStyles[1]} `}
             >
               <img
                 src={tech4}
@@ -194,10 +202,13 @@ const TicketPlatform = () => {
                 Buy tickets from verified sellers at the best prices.
               </p>
             </div>
+            {/* Step 3 */}
             <div
-              className={`p-8 rounded-lg shadow-2xl ${
-                stepStyles[(activeStep + 2) % 3]
-              } transition duration-500 transform hover:scale-105`}
+              className={`p-8 rounded-lg shadow-2xl transition duration-50 transform ${
+                activeStep === 2
+                  ? "scale-110 opacity-100"
+                  : "scale-100 opacity-30"
+              } ${stepStyles[2]} `}
             >
               <img
                 src={tech5}
