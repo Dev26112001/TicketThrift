@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom"; // Import Link
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -20,11 +21,11 @@ const Navbar = () => {
   // Handle body overflow when the menu is open
   useEffect(() => {
     if (isMenuOpen) {
-      document.body.style.overflow = "hidden";  // Disable body scroll when menu is open
-      document.addEventListener("mousedown", handleClickOutside);  // Add event listener for clicks
+      document.body.style.overflow = "hidden"; // Disable body scroll when menu is open
+      document.addEventListener("mousedown", handleClickOutside); // Add event listener for clicks
     } else {
-      document.body.style.overflow = "auto";  // Enable body scroll when menu is closed
-      document.removeEventListener("mousedown", handleClickOutside);  // Remove event listener
+      document.body.style.overflow = "auto"; // Enable body scroll when menu is closed
+      document.removeEventListener("mousedown", handleClickOutside); // Remove event listener
     }
     return () => {
       // Cleanup event listener on component unmount
@@ -37,8 +38,15 @@ const Navbar = () => {
   };
 
   const metroCities = [
-    "Delhi", "Mumbai", "Kolkata", "Chennai", "Bengaluru",
-    "Hyderabad", "Pune", "Ahmedabad", "Jaipur"
+    "Delhi",
+    "Mumbai",
+    "Kolkata",
+    "Chennai",
+    "Bengaluru",
+    "Hyderabad",
+    "Pune",
+    "Ahmedabad",
+    "Jaipur",
   ];
 
   return (
@@ -47,10 +55,10 @@ const Navbar = () => {
         {/* Left Section: Logo and Search */}
         <div className="flex items-center w-full space-x-4">
           {/* Logo */}
-          <div className="flex items-center">
+          <Link to="/" className="flex items-center">
             <span className="text-black text-xl font-semibold">Ticket</span>
             <span className="text-black text-xl font-semibold">Thrift</span>
-          </div>
+          </Link>
 
           {/* Search bar */}
           <div className="flex-grow">
@@ -100,7 +108,9 @@ const Navbar = () => {
         >
           {/* Fixed Section */}
           <div className="sticky top-0 bg-lime-100 p-4 rounded-md z-10">
-            <p className="text-gray-800 font-bold text-lg md:text-xl lg:text-2xl">Hey!</p>
+            <p className="text-gray-800 font-bold text-lg md:text-xl lg:text-2xl">
+              Hey!
+            </p>
             <div className="flex justify-between items-center mt-2">
               <p className="text-gray-600 text-sm sm:text-base lg:text-lg">
                 Unlock special offers & great benefits
@@ -115,44 +125,70 @@ const Navbar = () => {
           <ul className="space-y-4 mt-6">
             {/* Notifications Button */}
             <button className="w-full flex justify-between items-center bg-gray-100 p-4 rounded-md hover:bg-gray-200 focus:ring-2 focus:ring-blue-300 text-left">
-              <span className="text-gray-700 text-sm sm:text-base lg:text-lg">Notifications</span>
+              <span className="text-gray-700 text-sm sm:text-base lg:text-lg">
+                Notifications
+              </span>
               <span className="text-sm sm:text-base lg:text-lg">▶</span>
             </button>
 
             {/* Your Orders Button */}
             <button className="w-full flex flex-col bg-gray-50 p-4 rounded-md hover:bg-gray-100 focus:ring-2 focus:ring-blue-300 text-left">
-              <span className="text-gray-400 text-sm sm:text-base lg:text-lg">Your Orders</span>
-              <span className="text-xs sm:text-sm lg:text-base text-gray-500">View all your bookings & purchases</span>
+              <span className="text-gray-400 text-sm sm:text-base lg:text-lg">
+                Your Orders
+              </span>
+              <span className="text-xs sm:text-sm lg:text-base text-gray-500">
+                View all your bookings & purchases
+              </span>
             </button>
 
             {/* Stream Library Button */}
             <button className="w-full flex flex-col bg-gray-50 p-4 rounded-md hover:bg-gray-100 focus:ring-2 focus:ring-blue-300 text-left">
-              <span className="text-gray-400 text-sm sm:text-base lg:text-lg">Stream Library</span>
-              <span className="text-xs sm:text-sm lg:text-base text-gray-500">Rented & Purchased Movies</span>
+              <span className="text-gray-400 text-sm sm:text-base lg:text-lg">
+                Stream Library
+              </span>
+              <span className="text-xs sm:text-sm lg:text-base text-gray-500">
+                Rented & Purchased Movies
+              </span>
             </button>
 
             {/* Play Credit Card Button */}
             <button className="w-full flex flex-col bg-gray-100 p-4 rounded-md hover:bg-gray-200 focus:ring-2 focus:ring-blue-300 text-left">
-              <span className="text-gray-700 text-sm sm:text-base lg:text-lg">Play Credit Card</span>
-              <span className="text-xs sm:text-sm lg:text-base text-gray-500">View your Play Credit Card details and offers</span>
+              <span className="text-gray-700 text-sm sm:text-base lg:text-lg">
+                Play Credit Card
+              </span>
+              <span className="text-xs sm:text-sm lg:text-base text-gray-500">
+                View your Play Credit Card details and offers
+              </span>
             </button>
 
             {/* Help & Support Button */}
             <button className="w-full flex flex-col bg-gray-100 p-4 rounded-md hover:bg-gray-200 focus:ring-2 focus:ring-blue-300 text-left">
-              <span className="text-gray-700 text-sm sm:text-base lg:text-lg">Help & Support</span>
-              <span className="text-xs sm:text-sm lg:text-base text-gray-500">View commonly asked queries and Chat</span>
+              <span className="text-gray-700 text-sm sm:text-base lg:text-lg">
+                Help & Support
+              </span>
+              <span className="text-xs sm:text-sm lg:text-base text-gray-500">
+                View commonly asked queries and Chat
+              </span>
             </button>
 
             {/* Accounts & Settings Button */}
             <button className="w-full flex flex-col bg-gray-50 p-4 rounded-md hover:bg-gray-100 focus:ring-2 focus:ring-blue-300 text-left">
-              <span className="text-gray-400 text-sm sm:text-base lg:text-lg">Accounts & Settings</span>
-              <span className="text-xs sm:text-sm lg:text-base text-gray-500">Location, Payments, Permissions & More</span>
+              <span className="text-gray-400 text-sm sm:text-base lg:text-lg">
+                Accounts & Settings
+              </span>
+              <span className="text-xs sm:text-sm lg:text-base text-gray-500">
+                Location, Payments, Permissions & More
+              </span>
             </button>
 
             {/* Rewards Button */}
             <button className="w-full flex flex-col bg-gray-100 p-4 rounded-md hover:bg-gray-200 focus:ring-2 focus:ring-blue-300 text-left">
-              <span className="text-gray-700 text-sm sm:text-base lg:text-lg">Rewards</span>
-              <span className="text-xs sm:text-sm lg:text-base text-gray-500">View your rewards & unlock new ones</span>
+              <span className="text-gray-700 text-sm sm:text-base lg:text-lg">
+                Rewards
+              </span>
+              <span className="text-xs sm:text-sm lg:text-base text-gray-500">
+                View your rewards & unlock new ones
+              </span>
             </button>
           </ul>
         </div>

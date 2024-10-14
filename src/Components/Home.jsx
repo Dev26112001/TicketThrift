@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FaFacebookF, FaTwitter } from "react-icons/fa";
+import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import FeaturedEventsCard from "../Pages/FeaturedEventsCard";
 import BlogCard from "../Pages/BlogCard";
@@ -110,7 +110,7 @@ const TicketPlatform = () => {
                   <p className="text-gray-600">Address: {event.venueAddress}</p>
                   <button type="button">
                     <Link
-                      to={`/event/${index}`}
+                      to={`/event/${index}`} // Link to the specific event page
                       className="inline-block mt-4 px-6 py-2 text-lg font-semibold text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 transition duration-300 ease-in-out transform hover:scale-105"
                     >
                       View Tickets
