@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState, useCallback } from "react";
 import { Line } from "react-chartjs-2";
-import { useUser } from '@clerk/clerk-react';
+import { useUser, SignOutButton } from '@clerk/clerk-react';
 
 import {
   Chart as ChartJS,
@@ -368,6 +368,11 @@ const ProfileDashboard = () => {
               className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
             >
               View Sold Tickets
+            </button>
+            <button 
+              onClick={() => setShowTicketsSoldModal(true)}
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            ><SignOutButton>Logout</SignOutButton>
             </button>
           </div>
         </div>
