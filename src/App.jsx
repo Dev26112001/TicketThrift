@@ -1,32 +1,83 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Nav from "./Components/Navbar.jsx";
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { SignedIn, SignedOut, RedirectToSignIn } from '@clerk/clerk-react';
+import Navbar from './Components/Navbar';
 import Buy from "./Components/BuyNow.jsx";
-import Home from "./Components/Home.jsx";
+import Home from './Components/Home';
 import Hello2 from "./Components/Sell.jsx";
 import Hello3 from "./Components/Readmore.jsx";
 import Hello4 from "./Components/Blog.jsx";
 import Hey from "./Components/Checkout.jsx";
 import Event from "./Components/Eventdescription.jsx";
-import ProfileDashboard from "./Components/Profile.jsx";
+import Profile from './Components/Profile';
+
+// Wrapper component for protected routes
+const ProtectedRoute = ({ children }) => {
+  return (
+    <>
+      <SignedIn>
+        {children}
+      </SignedIn>
+      <SignedOut>
+        <RedirectToSignIn redirectUrl="/profile" />
+      </SignedOut>
+    </>
+  );
+};
 
 function App() {
   return (
-    <Router>
-      <Nav /> {/* Navbar will be visible on all pages */}
+    <BrowserRouter>
+      <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} /> {/* Homepage */}
-        <Route path="/buy" element={<Buy />} />
-        <Route path="/sell" element={<Hello2 />} />
+        {/* Public routes */}
+        <Route path="/" element={<Home />} />
         <Route path="/readmore" element={<Hello3 />} />
         <Route path="/blog" element={<Hello4 />} />
-        <Route path="/checkout" element={<Hey />} />
-        <Route path="/event/:id" element={<Event />} />{" "}
-        {/* Updated to include event ID */}
-        <Route path="/profile" element={<ProfileDashboard />} />
-        <Route path="*" element={<h2>404 - Page Not Found</h2>} />{" "}
-        {/* 404 Page */}
+
+        {/* Protected routes */}
+        <Route 
+          path="/buy" 
+          element={
+            <ProtectedRoute>
+              <Buy />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/sell" 
+          element={
+            <ProtectedRoute>
+              <Hello2 />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/checkout" 
+          element={
+            <ProtectedRoute>
+              <Hey />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/event/:id" 
+          element={
+            <ProtectedRoute>
+              <Event />
+            </ProtectedRoute>
+          } 
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 }
 

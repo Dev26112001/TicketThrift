@@ -1,0 +1,47 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+type Address {
+  street String
+  city   String
+  state  String
+  zip    String
+}
+
+model User {
+  id      String    @id @default(auto()) @map("_id") @db.ObjectId
+  email   String    @unique
+  name    String?
+  address Address?
+  tickets Tickets[]
+}
+
+model Tickets {
+  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
+  eventName          String   @unique
+  eventDate          DateTime
+  venueName          String
+  venueAddress       String
+  eventDescription   String
+  tickettype         String
+  quantity           Int // New field for quantity
+  price              Float // New field for price
+  images             String[] // New field for uploading images (array of strings)
+  ticketDescription  String // New field for ticket description
+  termsAndConditions String // New field for terms and conditions
+  author             User     @relation(fields: [authorId], references: [id])
+  authorId           String   @db.ObjectId
+  //comments Comment[]
+}

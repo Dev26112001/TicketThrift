@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState, useCallback } from "react";
 import { Line } from "react-chartjs-2";
+import { useUser } from '@clerk/clerk-react';
 
 import {
   Chart as ChartJS,
@@ -284,233 +285,104 @@ const TicketsModal = ({ visible, onClose, tickets, title }) => {
 
 // Main Profile Dashboard
 const ProfileDashboard = () => {
-  const [showModal, setShowModal] = useState(false);
+  const { user } = useUser();
   const [showTicketsBoughtModal, setShowTicketsBoughtModal] = useState(false);
   const [showTicketsSoldModal, setShowTicketsSoldModal] = useState(false);
-
-  const [userDetails, setUserDetails] = useState({
-    name: "John Doe",
-    email: "john.doe@example.com",
-    phone: "123-456-7890",
-    address: "123 Main St, City, Country",
-  });
 
   const ticketsBought = ["Concert A", "Concert B", "Concert C"];
   const ticketsSold = ["Concert X", "Concert Y"];
 
-  const recentActivities = [
-    { type: "bought", ticket: "Concert A", amount: -50 },
-    { type: "sold", ticket: "Concert X", amount: 100 },
-    { type: "bought", ticket: "Concert B", amount: -50 },
-    { type: "sold", ticket: "Concert Y", amount: 100 },
-  ];
-
-  const handleOpenModal = () => setShowModal(true);
-  const handleCloseModal = () => setShowModal(false);
-
-  const handleOpenTicketsBoughtModal = () => setShowTicketsBoughtModal(true);
-  const handleCloseTicketsBoughtModal = () => setShowTicketsBoughtModal(false);
-
-  const handleOpenTicketsSoldModal = () => setShowTicketsSoldModal(true);
-  const handleCloseTicketsSoldModal = () => setShowTicketsSoldModal(false);
-
-  const handleSaveChanges = (newDetails) => setUserDetails(newDetails);
-
   return (
-    <div className="p-8 bg-gray-100 min-h-screen">
-      <h1 className="text-4xl font-bold text-center mb-8 text-blue-600">
-        TicketThrift Profile Dashboard
-      </h1>
-
-      {/* Profile Info */}
-      <div className="bg-white p-6 rounded-lg shadow-md grid grid-cols-2 gap-8 mb-8">
-        <div className="w-full mx-auto bg-white rounded-lg shadow-md overflow-hidden">
-          <div className="bg-blue-600 h-32 w-full"></div>
-          <div className="relative -mt-16 flex justify-center">
-            <img
-              src={
-                userDetails.profileImage || "https://via.placeholder.com/150"
-              }
-              alt="User Profile"
-              className="h-32 w-32 rounded-full border-4 border-white shadow-lg"
+    <div className="container mx-auto p-4">
+      <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+        {/* User Profile Header */}
+        <div className="bg-gradient-to-r from-purple-500 to-blue-500 p-6 text-white">
+          <div className="flex items-center space-x-4">
+            <img 
+              src={user?.imageUrl} 
+              alt="Profile" 
+              className="w-24 h-24 rounded-full border-4 border-white"
             />
-          </div>
-          <div className="text-center mt-6">
-            <h2 className="text-2xl font-bold text-gray-800">
-              Personal Information
-            </h2>
-          </div>
-          <div className="p-6">
-            <div className="space-y-4">
-              <div className="flex items-center space-x-4">
-                <label className="w-24 font-semibold text-gray-600">
-                  Name:
-                </label>
-                <div className="flex-1">
-                  <input
-                    type="text"
-                    value={userDetails.name}
-                    readOnly
-                    placeholder="Enter your name"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white"
-                  />
-                </div>
-              </div>
-              <div className="flex items-center space-x-4">
-                <label className="w-24 font-semibold text-gray-600">
-                  Email:
-                </label>
-                <div className="flex-1">
-                  <input
-                    type="email"
-                    value={userDetails.email}
-                    readOnly
-                    placeholder="Enter your email"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white"
-                  />
-                </div>
-              </div>
-              <div className="flex items-center space-x-4">
-                <label className="w-24 font-semibold text-gray-600">
-                  Phone:
-                </label>
-                <div className="flex-1">
-                  <input
-                    type="text"
-                    value={userDetails.phone}
-                    readOnly
-                    placeholder="Enter your phone number"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white"
-                  />
-                </div>
-              </div>
-              <div className="flex items-center space-x-4">
-                <label className="w-24 font-semibold text-gray-600">
-                  Address:
-                </label>
-                <div className="flex-1">
-                  <input
-                    type="text"
-                    value={userDetails.address}
-                    readOnly
-                    placeholder="Enter your address"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="mt-6 flex justify-center">
-              <button
-                onClick={handleOpenModal}
-                className="px-8 py-2 text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-              >
-                Edit Information
-              </button>
+            <div>
+              <h1 className="text-2xl font-bold">
+                {user?.firstName} {user?.lastName}
+              </h1>
+              <p className="text-sm opacity-90">{user?.primaryEmailAddress?.emailAddress}</p>
+              {user?.phoneNumbers && user.phoneNumbers[0] && (
+                <p className="text-sm opacity-90">{user.phoneNumbers[0].phoneNumber}</p>
+              )}
             </div>
           </div>
         </div>
-        {/* Tickets & Recent Activities */}
-        <div className="space-y-6">
-          {/* Tickets Bought & Sold */}
-          <div className="grid grid-cols-2 gap-4">
-            <div
-              onClick={handleOpenTicketsBoughtModal}
-              className="bg-purple-100 p-6 rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition duration-300 ease-in-out"
-            >
-              <h2 className="text-2xl font-bold text-blue-600 mb-4">
-                Tickets Bought
-              </h2>
-              <p className="text-gray-600">
-                You have bought {ticketsBought.length} tickets.
+
+        {/* User Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-6">
+          <div className="bg-gray-50 p-4 rounded-lg text-center">
+            <h3 className="text-lg font-semibold text-gray-700">Tickets Bought</h3>
+            <p className="text-2xl font-bold text-purple-600">{ticketsBought.length}</p>
+          </div>
+          <div className="bg-gray-50 p-4 rounded-lg text-center">
+            <h3 className="text-lg font-semibold text-gray-700">Tickets Sold</h3>
+            <p className="text-2xl font-bold text-blue-600">{ticketsSold.length}</p>
+          </div>
+          <div className="bg-gray-50 p-4 rounded-lg text-center">
+            <h3 className="text-lg font-semibold text-gray-700">Account Created</h3>
+            <p className="text-sm text-gray-600">
+              {new Date(user?.createdAt).toLocaleDateString()}
+            </p>
+          </div>
+        </div>
+
+        {/* Additional User Details */}
+        <div className="p-6 border-t">
+          <h2 className="text-xl font-semibold mb-4">Account Details</h2>
+          <div className="space-y-3">
+            <div>
+              <label className="text-gray-600 text-sm">Email Verification</label>
+              <p className="font-medium">
+                {user?.emailAddresses?.[0]?.verification?.status === "verified" 
+                  ? "✅ Verified" 
+                  : "❌ Not Verified"}
               </p>
             </div>
-            <div
-              onClick={handleOpenTicketsSoldModal}
-              className="bg-green-100 p-6 rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition duration-300 ease-in-out"
+            {user?.username && (
+              <div>
+                <label className="text-gray-600 text-sm">Username</label>
+                <p className="font-medium">@{user.username}</p>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="p-6 bg-gray-50">
+          <div className="flex flex-wrap gap-4">
+            <button 
+              onClick={() => setShowTicketsBoughtModal(true)}
+              className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
             >
-              <h2 className="text-2xl font-bold text-green-600 mb-4">
-                Tickets Sold
-              </h2>
-              <p className="text-gray-600">
-                You have sold {ticketsSold.length} tickets.
-              </p>
-            </div>
-          </div>
-
-          {/* Recent Activities */}
-          <div className="bg-white rounded-lg shadow-md p-4">
-            <h3 className="text-lg font-bold mb-4">Recent Activities</h3>
-            <ul className="space-y-2">
-              {recentActivities.map((activity, index) => (
-                <li
-                  key={index}
-                  className={`flex justify-between items-center px-4 py-2 rounded-md ${
-                    activity.amount < 0 ? "bg-red-50" : "bg-green-50"
-                  }`}
-                >
-                  <span className="font-semibold">
-                    {activity.type === "bought" ? "Bought" : "Sold"}:{" "}
-                    {activity.ticket}
-                  </span>
-                  <span
-                    className={`font-semibold ${
-                      activity.amount < 0 ? "text-red-500" : "text-green-500"
-                    }`}
-                  >
-                    {activity.amount < 0 ? "-" : "+"}$
-                    {Math.abs(activity.amount)}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Account Settings */}
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">
-              Account Settings
-            </h2>
-            <ul className="space-y-4">
-              <li>
-                <strong>Profile Settings:</strong> Update your personal details
-              </li>
-              <li>
-                <strong>Security & Privacy:</strong> Change password, 2FA
-              </li>
-              <li>
-                <strong>Notification Preferences:</strong> Email, SMS, Push
-              </li>
-              <li>
-                <strong>Payment Methods:</strong> Manage cards, PayPal, etc.
-              </li>
-              <li>
-                <strong>Connected Apps:</strong> See and manage third-party
-                integrations
-              </li>
-            </ul>
-            <button className="mt-4 px-4 py-2 text-white bg-gray-600 rounded-md hover:bg-gray-700">
-              Manage Settings
+              View Bought Tickets
+            </button>
+            <button 
+              onClick={() => setShowTicketsSoldModal(true)}
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              View Sold Tickets
             </button>
           </div>
         </div>
       </div>
 
       {/* Modals */}
-      <Modal
-        visible={showModal}
-        onClose={handleCloseModal}
-        userDetails={userDetails}
-        onSave={handleSaveChanges}
-      />
       <TicketsModal
         visible={showTicketsBoughtModal}
-        onClose={handleCloseTicketsBoughtModal}
+        onClose={() => setShowTicketsBoughtModal(false)}
         tickets={ticketsBought}
         title="Tickets Bought"
       />
       <TicketsModal
         visible={showTicketsSoldModal}
-        onClose={handleCloseTicketsSoldModal}
+        onClose={() => setShowTicketsSoldModal(false)}
         tickets={ticketsSold}
         title="Tickets Sold"
       />
