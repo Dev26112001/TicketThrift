@@ -26,6 +26,7 @@ model User {
   name    String?
   address Address?
   tickets Tickets[]
+  clerkid String
 }
 
 model Tickets {
